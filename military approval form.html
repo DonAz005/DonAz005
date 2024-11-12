@@ -1,0 +1,50 @@
+from fpdf import FPDF
+
+class PDF(FPDF):
+    def header(self):
+        self.set_font("Arial", "B", 12)
+        self.cell(0, 10, "Approval Form", 0, 1, "C")
+        self.cell(0, 10, "For Military Personnel Only", 0, 1, "C")
+        self.set_font("Arial", "", 10)
+        self.cell(0, 10, "This form is exclusively for military personnel seeking approval for their wife.", 0, 1, "C")
+        self.ln(10)
+
+    def footer(self):
+        self.set_y(-15)
+        self.set_font("Arial", "I", 8)
+        self.cell(0, 10, f"Page {self.page_no()}", 0, 0, "C")
+
+    def add_form_fields(self):
+        self.set_font("Arial", "", 12)
+        
+        # Applicant Information
+        self.cell(0, 10, "Applicant Information", 0, 1)
+        self.cell(0, 10, "Full Name: ________________________________", 0, 1)
+        self.cell(0, 10, "ID Card Number: ____________________________", 0, 1)
+        self.cell(0, 10, "Date of Birth: _____________________________", 0, 1)
+        self.cell(0, 10, "Address: __________________________________", 0, 1)
+        self.ln(10)
+
+        # Payment Information
+        self.cell(0, 10, "Payment Information", 0, 1)
+        self.cell(0, 10, "Approval Form Fee:  (each applicant pays )", 0, 1)
+        self.cell(0, 10, "Amount Paid: ______________________________", 0, 1)
+        self.cell(0, 10, "Payment Date: _____________________________", 0, 1)
+        self.cell(0, 10, "Payment Method:", 0, 1)
+        self.cell(0, 10, "[ ] Cash    [ ] Card    [ ] Other (specify: __________________)", 0, 1)
+        self.ln(10)
+
+        # Signature
+        self.cell(0, 10, "Signature: ____________________________", 0, 1)
+        self.cell(0, 10, "Date: _______________________________", 0, 1)
+
+# Create the PDF
+pdf = PDF()
+pdf.add_page()
+pdf.add_form_fields()
+
+# Save the PDF
+pdf_output_path = "/mnt/data/Approval_Form_Military.pdf"
+pdf.output(pdf_output_path)
+
+pdf_output_path
